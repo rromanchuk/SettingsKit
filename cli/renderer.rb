@@ -1,3 +1,11 @@
+class String
+  def camelize
+    string = self
+    string = string.sub(/^(?:(?=\b|[A-Z_])|\w)/) { |match| match.downcase }
+    string.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{$1}#{$2.capitalize}" }.gsub("/", "::")
+  end
+end
+
 module SettingsKit
   class Renderer
 
@@ -17,10 +25,10 @@ module SettingsKit
     end
 
     def generate
-      enums = @settings.map { |key| "  case " + key.camelcase }.join("\n")
+      enums = @settings.map { |key| "  case " + key.camelize }.join("\n")
 
       identifiers = @settings.map { |key|
-        "      case .#{snake_to_studly(key)}:\n        return \"#{key}\""
+        "      case .#{key.camelize}:\n        return \"#{key}\""
       }.join("\n")
 
 <<-swift
@@ -46,12 +54,6 @@ enum Settings: SettingsKit {
   }
 }
 swift
-    end
-
-    def snake_to_camel(string)
-      string.split("_").map.with_index { |word, index| 
-        index == 0 ? word.capitalize : word.downcase
-      }.join
     end
 
   end
