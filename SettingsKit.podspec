@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.author           = { "Dan Trenz" => "dtrenz@gmail.com" }
   s.source           = { :git => "https://github.com/dtrenz/SettingsKit.git", :tag => s.version.to_s }
   s.social_media_url = "https://twitter.com/dtrenz"
-  s.platform         = :ios, "8.3"
+  s.platform         = :ios, "11.0"
   s.requires_arc     = true
   s.source_files     = [ "Sources/**/*", "cli/**/*", "build" ]
   s.preserve_paths   = [ "cli/**/*", "build" ]
