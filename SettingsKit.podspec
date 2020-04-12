@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.requires_arc     = true
   #s.source_files     = [ "Sources/**/*", "cli/**/*", "build" ]
   s.preserve_paths   = [ "cli/**/*", "build" ]
-  s.source_files     = [ "Sources/**/*.swift", "build" ]
+  s.source_files     = [ "Sources/**/*.swift" ]
   s.ios.deployment_target = '11.0'
   s.osx.deployment_target = '11.0'
   s.tvos.deployment_target = '11.0'
