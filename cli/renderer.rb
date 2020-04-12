@@ -17,7 +17,7 @@ module SettingsKit
     end
 
     def generate
-      enums = @settings.map { |key| "  case " + snake_to_studly(key) }.join("\n")
+      enums = @settings.map { |key| "  case " + key.camelcase }.join("\n")
 
       identifiers = @settings.map { |key|
         "      case .#{snake_to_studly(key)}:\n        return \"#{key}\""
