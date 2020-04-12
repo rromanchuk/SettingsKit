@@ -44,7 +44,7 @@ module SettingsKit
 //
 import SettingsKit
 
-enum Settings: SettingsKit {
+enum Settings: String, SettingsKit {
 #{enums}
 
   var identifier: String {
