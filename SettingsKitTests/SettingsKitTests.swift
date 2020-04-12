@@ -11,27 +11,9 @@ import XCTest
 @testable import SettingsKit
 
 
-enum Settings: SettingsKit {
+enum Settings: String, SettingsKit {
     case apiEnvironment, cityState, dateOfBirth, enableAnalytics, encodedString, luckyNumber, socialNetworks
     
-    var identifier: String {
-        switch self {
-        case .apiEnvironment:
-            return "api_environment"
-        case .cityState:
-            return "city_state"
-        case .dateOfBirth:
-            return "date_of_birth"
-        case .enableAnalytics:
-            return "enable_analytics"
-        case .encodedString:
-            return "encoded_string"
-        case .luckyNumber:
-            return "lucky_number"
-        case .socialNetworks:
-            return "social_networks"
-        }
-    }
 }
 
 
@@ -53,7 +35,7 @@ class SettingsKitTests: XCTestCase {
     }
     
     func testSetArray() {
-        let identifier = Settings.socialNetworks.identifier
+        let identifier = Settings.socialNetworks.rawValue
         let value = [ "facebook", "twitter", "instagram" ]
         
         UserDefaults.standard.removeObject(forKey: identifier)
@@ -66,7 +48,7 @@ class SettingsKitTests: XCTestCase {
     }
     
     func testSetBool() {
-        let identifier = Settings.enableAnalytics.identifier
+        let identifier = Settings.enableAnalytics.rawValue
         let value = true
         
         UserDefaults.standard.removeObject(forKey: identifier)
@@ -79,7 +61,7 @@ class SettingsKitTests: XCTestCase {
     }
     
     func testSetData() {
-        let identifier = Settings.encodedString.identifier
+        let identifier = Settings.encodedString.rawValue
         let value = NSData(base64Encoded: "SGVsbG8gV29ybGQ=", options: [])!
         
         UserDefaults.standard.removeObject(forKey: identifier)
@@ -92,7 +74,7 @@ class SettingsKitTests: XCTestCase {
     }
     
     func testSetDate() {
-        let identifier = Settings.dateOfBirth.identifier
+        let identifier = Settings.dateOfBirth.rawValue
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd";
         let value = formatter.date(from: "1969-02-26")!
@@ -107,7 +89,7 @@ class SettingsKitTests: XCTestCase {
     }
     
     func testSetDictionary() {
-        let identifier = Settings.cityState.identifier
+        let identifier = Settings.cityState.rawValue
         let value = [ "Detroit": "Michigan", "Austin": "Texas", "Chicago": "Illinois" ]
         
         UserDefaults.standard.removeObject(forKey: identifier)
@@ -120,7 +102,7 @@ class SettingsKitTests: XCTestCase {
     }
     
     func testSetInt() {
-        let identifier = Settings.luckyNumber.identifier
+        let identifier = Settings.luckyNumber.rawValue
         let value = 23
         
         UserDefaults.standard.removeObject(forKey: identifier)
@@ -133,7 +115,7 @@ class SettingsKitTests: XCTestCase {
     }
     
     func testSetString() {
-        let identifier = Settings.apiEnvironment.identifier
+        let identifier = Settings.apiEnvironment.rawValue
         let value = "Staging"
         
         UserDefaults.standard.removeObject(forKey: identifier)
@@ -146,7 +128,7 @@ class SettingsKitTests: XCTestCase {
     }
     
     func testGetArray() {
-        let identifier = Settings.socialNetworks.identifier
+        let identifier = Settings.socialNetworks.rawValue
         let value = [ "facebook", "twitter", "instagram" ]
         
         UserDefaults.standard.set(value, forKey: identifier)
@@ -157,7 +139,7 @@ class SettingsKitTests: XCTestCase {
     }
     
     func testGetBool() {
-        let identifier = Settings.enableAnalytics.identifier
+        let identifier = Settings.enableAnalytics.rawValue
         let value = true
         
         UserDefaults.standard.set(value, forKey: identifier)
@@ -168,7 +150,7 @@ class SettingsKitTests: XCTestCase {
     }
     
     func testGetData() {
-        let identifier = Settings.encodedString.identifier
+        let identifier = Settings.encodedString.rawValue
         let value = NSData(base64Encoded: "SGVsbG8gV29ybGQ=", options: []) as NSData!
         
         UserDefaults.standard.set(value, forKey: identifier)
@@ -179,7 +161,7 @@ class SettingsKitTests: XCTestCase {
     }
     
     func testGetDate() {
-        let identifier = Settings.dateOfBirth.identifier
+        let identifier = Settings.dateOfBirth.rawValue
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd";
         let value = formatter.date(from: "1969-02-26")!
@@ -192,7 +174,7 @@ class SettingsKitTests: XCTestCase {
     }
     
     func testGetDictionary() {
-        let identifier = Settings.cityState.identifier
+        let identifier = Settings.cityState.rawValue
         let value = [ "Detroit": "Michigan", "Austin": "Texas", "Chicago": "Illinois" ]
         
         UserDefaults.standard.set(value, forKey: identifier)
@@ -203,7 +185,7 @@ class SettingsKitTests: XCTestCase {
     }
     
     func testGetInt() {
-        let identifier = Settings.luckyNumber.identifier
+        let identifier = Settings.luckyNumber.rawValue
         let value = 23
         
         UserDefaults.standard.set(value, forKey: identifier)
@@ -214,7 +196,7 @@ class SettingsKitTests: XCTestCase {
     }
     
     func testGetString() {
-        let identifier = Settings.apiEnvironment.identifier
+        let identifier = Settings.apiEnvironment.rawValue
         let value = "Staging"
         
         UserDefaults.standard.set(value, forKey: identifier)
@@ -227,7 +209,7 @@ class SettingsKitTests: XCTestCase {
     func testSubscribe() {
         var result = false
         
-        UserDefaults.standard.set(false, forKey: Settings.enableAnalytics.identifier)
+        UserDefaults.standard.set(false, forKey: Settings.enableAnalytics.rawValue)
         
         let expect = expectation(description: "onChange")
         
@@ -239,7 +221,7 @@ class SettingsKitTests: XCTestCase {
             expect.fulfill()
         }
         
-        UserDefaults.standard.set(true, forKey: Settings.enableAnalytics.identifier)
+        UserDefaults.standard.set(true, forKey: Settings.enableAnalytics.rawValue)
         
         waitForExpectations(timeout: 5) { (error) in
             if let error = error {
